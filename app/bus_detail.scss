@@ -1,4 +1,36 @@
 .bus-detail {
   @include panel;
   cursor: pointer;
+
+  padding: 1em;
+
+  ol {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  li {
+    list-style-type: none;
+    float: left;
+    width: 33%;
+    text-align: center;
+  }
+
+  .schedule {
+    margin-bottom: 2em;
+  }
+
+  .hour {
+    font-size: 1.2em;
+    font-weight: lighter;
+  }
+
+  .past {
+    color: red;
+  }
+
+  .present, .future {
+    color: green;
+  }
 }
+
