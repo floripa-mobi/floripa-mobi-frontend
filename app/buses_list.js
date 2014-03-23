@@ -15,7 +15,7 @@ function (React, _) {
       return (
         <li onClick={this.onSelect}>
           {bus.name}
-          <span>{bus.number}</span>
+          <span className='number'>{bus.number}</span>
         </li>
       );
     }

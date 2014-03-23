@@ -2,6 +2,10 @@
   @include panel;
   cursor: pointer;
 
+  h1, h2 {
+    padding-left: 1rem;
+  }
+
   ol {
     padding: 0;
     overflow: hidden;
@@ -18,9 +22,8 @@
     margin-bottom: 2em;
   }
 
-  .hour {
-    font-size: 1.2em;
-    font-weight: lighter;
+  .hours {
+    font-size: 1.5em;
   }
 
   .missed {
