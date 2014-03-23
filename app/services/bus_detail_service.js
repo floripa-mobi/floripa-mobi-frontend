@@ -6,12 +6,12 @@ function () {
       number: "177",
       name: "Santa Monica",
       schedule: [
-        { departure: 'TITRI -> UFSC - Ida', period: 'weekday', schedule: ['10:23', '10:30', '10:50'] },
-        { departure: 'TITRI -> UFSC - Ida', period: 'saturday', schedule: ['10:23', '10:30', '10:50'] },
-        { departure: 'TITRI -> UFSC - Ida', period: 'sunday', schedule: ['10:23', '10:30', '10:50'] },
-        { departure: 'UFSC -> TITRI - Volta', period: 'weekday', schedule: ['10:23', '10:30', '10:50'] },
-        { departure: 'UFSC -> TITRI - Volta', period: 'saturday', schedule: ['10:23', '10:30', '10:50'] },
-        { departure: 'UFSC -> TITRI - Volta', period: 'sunday', schedule: ['10:23', '10:30', '10:50'] }
+        { departure: 'TITRI -> UFSC - Ida', period: 'weekday', hours: ['3:23', '3:30', '3:50'] },
+        { departure: 'TITRI -> UFSC - Ida', period: 'saturday', hours: ['3:23', '3:30', '3:50'] },
+        { departure: 'TITRI -> UFSC - Ida', period: 'sunday', hours: ['3:23', '3:30', '3:50'] },
+        { departure: 'UFSC -> TITRI - Volta', period: 'weekday', hours: ['3:23', '3:30', '3:50'] },
+        { departure: 'UFSC -> TITRI - Volta', period: 'saturday', hours: ['3:23', '3:30', '3:50'] },
+        { departure: 'UFSC -> TITRI - Volta', period: 'sunday', hours: ['3:23', '3:30', '3:50'] }
       ]
     });
   }
