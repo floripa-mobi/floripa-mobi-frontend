@@ -1,27 +1,47 @@
 define([
   'react',
-  'underscore'
+  'underscore',
+  'app/helpers/proximity'
 ],
-function (React, _) {
+function (React, _, proximity) {
   var Schedule = React.createClass({
     render: function () {
-      var schedule = this.props.schedule,
-          past = schedule.schedule[0],
-          present = schedule.schedule[1],
-          future = schedule.schedule[2];
+      var schedule = this.props.schedule;
+
+      var minutes = _(schedule.hours).map(function (hour) {
+        var split = hour.split(':');
+        return split[0] * 60 + parseInt(split[1], 10);
+      });
+
+      var current = new Date().getHours() * 60 + new Date().getMinutes();
+
+      var proximityMinutes = _(proximity(minutes, current));
 
       return (
         <div className='schedule'>
           <h2>{schedule.departure}</h2>
-          <ol>
-            <li className='hour past'>{past}</li>
-            <li className='hour present'>{present}</li>
-            <li className='hour future'>{future}</li>
+          <ol className='hours'>
+            {
+              _(proximityMinutes).map(function (hour) {
+                return <li className={hourClass(hour, current)}>{formatHour(hour)}</li>
+              })
+            }
           </ol>
         </div>
       )
     }
   });
+
+
+  function formatHour (minutes) {
+    return Math.floor(minutes / 60) + ':' + minutes % 60;
+  }
+
+
+  function hourClass (hour, current) {
+    if (hour < current) { return 'missed'; }
+    if (hour >= current) { return 'available'; };
+  }
 
 
   var BusDetail = React.createClass({

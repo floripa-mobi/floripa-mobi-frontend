@@ -2,8 +2,6 @@
   @include panel;
   cursor: pointer;
 
-  padding: 1em;
-
   ol {
     padding: 0;
     overflow: hidden;
@@ -25,11 +23,11 @@
     font-weight: lighter;
   }
 
-  .past {
+  .missed {
     color: red;
   }
 
-  .present, .future {
+  .available {
     color: green;
   }
 }
