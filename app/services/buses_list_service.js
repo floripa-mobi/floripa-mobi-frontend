@@ -1,34 +1,13 @@
 define([
+  'app/helpers/load_json'
 ],
-function () {
+function (loadJSON) {
   function fetch (callback) {
-    callback([
-      { number: '177', name: 'Santa Monica' },
-      { number: '320', name: 'Lagoa da Conceição' },
-      { number: '177', name: 'Santa Monica' },
-      { number: '320', name: 'Lagoa da Conceição' },
-      { number: '177', name: 'Santa Monica' },
-      { number: '320', name: 'Lagoa da Conceição' },
-      { number: '177', name: 'Santa Monica' },
-      { number: '320', name: 'Lagoa da Conceição' },
-      { number: '177', name: 'Santa Monica' },
-      { number: '320', name: 'Lagoa da Conceição' },
-      { number: '177', name: 'Santa Monica' },
-      { number: '320', name: 'Lagoa da Conceição' },
-      { number: '177', name: 'Santa Monica' },
-      { number: '320', name: 'Lagoa da Conceição' },
-      { number: '177', name: 'Santa Monica' },
-      { number: '320', name: 'Lagoa da Conceição' },
-      { number: '177', name: 'Santa Monica' },
-      { number: '320', name: 'Lagoa da Conceição' },
-      { number: '177', name: 'Santa Monica' },
-      { number: '320', name: 'Lagoa da Conceição' },
-      { number: '177', name: 'Santa Monica' },
-      { number: '320', name: 'Lagoa da Conceição' },
-      { number: '177', name: 'Santa Monica' },
-      { number: '320', name: 'Lagoa da Conceição' },
-      { number: '233', name: 'Canasvieiras Trindade' }
-    ]);
+    loadJSON('/index.json', function (data) {
+      callback(data);
+    }, function () {
+      callback([]);
+    });
   }
 
   return {

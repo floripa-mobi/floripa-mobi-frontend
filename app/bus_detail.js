@@ -19,7 +19,7 @@ function (React, _, proximity) {
 
       return (
         <div className='schedule'>
-          <h2>{schedule.departure}</h2>
+          <h2>{schedule.origin}</h2>
           <ol className='hours'>
             {
               _(proximityMinutes).map(function (hour) {
