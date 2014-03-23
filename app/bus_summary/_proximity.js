@@ -2,6 +2,10 @@ define([
   'underscore'
 ],
 function (_) {
+  /**
+    Given an array of numbers, returns the 3 closest numbers to the given reference.
+    Note: It assumes the array is sorted.
+   */
   return function (array, reference) {
     if (array.length <= 3) { return array; }
 

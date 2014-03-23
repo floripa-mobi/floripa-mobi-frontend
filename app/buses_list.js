@@ -1,46 +1,46 @@
 define([
   'react',
-  'underscore'
+  'underscore',
+  'jsx!app/bus_summary/bus_summary'
 ],
-function (React, _) {
+function (React, _, BusSummary) {
 
-  var BusListItem = React.createClass({
-    onSelect: function () {
-      this.props.onSelect(this.props.bus);
-    },
+  /**
+    A list of bus summaries.
 
-    render: function () {
-      var bus = this.props.bus;
-
-      return (
-        <li onClick={this.onSelect}>
-          {bus.name}
-          <span className='number'>{bus.number}</span>
-        </li>
-      );
-    }
-  });
-
-  var BusList = React.createClass({
-
-    onSelect: function (bus) {
-      this.props.onSelect(bus);
-    },
-
+    @param buses an array of buses
+    @param selectedBus which bus is selected
+    @param onSelect triggers once a new bus is selected
+   */
+  var BusesList = React.createClass({
     render: function () {
       var that = this,
+          buses = this.props.buses,
           className = 'buses-list ' + that.props.className;
 
       return (
         <ol className={className}>
-          {_(that.props.buses).map(function (bus) {
-            return <BusListItem bus={bus} onSelect={that.onSelect}></BusListItem>
+          {_(buses).map(function (bus) {
+            return <li key={bus.number}>
+              <BusSummary bus={bus} showSchedule={isScheduleVisible.call(that, bus)} onClick={handleBusClick.bind(that, bus)}></BusSummary>
+            </li>
           })}
         </ol>
       )
     }
   });
 
-  return BusList;
+
+  function isScheduleVisible (bus) {
+    return this.props.selectedBus && bus.number === this.props.selectedBus.number
+  }
+
+
+  function handleBusClick (bus) {
+    this.props.onSelect && this.props.onSelect(bus);
+  }
+
+
+  return BusesList;
 
 });

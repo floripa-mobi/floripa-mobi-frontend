@@ -1,9 +1,38 @@
 define([
-  'react',
   'underscore',
-  'app/helpers/proximity'
+  'react',
+  'app/bus_summary/_proximity'
 ],
-function (React, _, proximity) {
+function (_, React, proximity) {
+  /**
+    Given a list of schedules, renders the impending hours at the current day and time.
+
+    @param schedules array of shedules with origin and hours.
+   */
+  var ImpendingHours = React.createClass({
+    render: function () {
+      var schedules = findCurrentSchedules(this.props.schedules),
+          className = 'impending-hours' + this.props.className;
+
+      return (
+        <section className={className}>
+          {
+            _(schedules).map(function (schedule) {
+              return <Schedule key={schedule.origin} schedule={schedule}></Schedule>
+            })
+          }
+        </section>
+      );
+    }
+  });
+
+
+  /**
+    Renders a single schedule impending hours.
+
+    @param schedule.origin
+    @param schedule.hours
+   */
   var Schedule = React.createClass({
     render: function () {
       var schedule = this.props.schedule;
@@ -23,7 +52,7 @@ function (React, _, proximity) {
           <ol className='hours'>
             {
               _(proximityMinutes).map(function (hour) {
-                return <li className={hourClass(hour, current)}>{formatHour(hour)}</li>
+                return <li key={hour} className={hourClass(hour, current)}>{formatHour(hour)}</li>
               })
             }
           </ol>
@@ -44,34 +73,8 @@ function (React, _, proximity) {
   }
 
 
-  var BusDetail = React.createClass({
-    close: function () {
-      this.props.onClose();
-    },
-
-    render: function () {
-      var bus = this.props.bus,
-          schedules = getCurrentSchedules(bus.schedule),
-          className = 'bus-detail ' + this.props.className;
-
-      return (
-        <div className={className} onClick={this.close}>
-          <h1>{bus.name}</h1>
-          {
-            _(schedules).map(function (schedule) {
-              return <Schedule schedule={schedule}></Schedule>
-            })
-          }
-        </div>
-      );
-    }
-  });
-
-
-  function getCurrentSchedules (schedules) {
+  function findCurrentSchedules (schedules) {
     var period = getCurrentPeriod();
-
-    console.log(period)
 
     return _(schedules).filter(function (schedule) {
       return schedule.period === period;
@@ -88,5 +91,5 @@ function (React, _, proximity) {
   }
 
 
-  return BusDetail;
+  return ImpendingHours;
 });

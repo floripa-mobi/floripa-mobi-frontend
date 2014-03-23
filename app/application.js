@@ -2,8 +2,7 @@ define([
   'react',
   'app/services/buses_list_service',
   'app/services/bus_detail_service',
-  'jsx!app/buses_list',
-  'jsx!app/bus_detail'
+  'jsx!app/buses_list'
 ],
 function (React, BusesListService, BusDetailService, BusesList, BusDetail) {
 
@@ -11,8 +10,7 @@ function (React, BusesListService, BusDetailService, BusesList, BusDetail) {
     getInitialState: function () {
       return {
         buses: [],
-        showing: 'list',
-        selectedBus: {}
+        selectedBus: null
       };
     },
 
@@ -24,38 +22,29 @@ function (React, BusesListService, BusDetailService, BusesList, BusDetail) {
       });
     },
 
-    selectBus: function (bus) {
-      var that = this;
-
-      console.log(bus);
-
-      that.setState({
-        showing: 'detail',
-        selectedBus: bus
-      });
-
-      BusDetailService.fetch(bus.number, function (bus) {
-        that.setState({ selectedBus: bus });
-      })
-    },
-
-    closeSelection: function () {
-      var that = this;
-      that.setState({ showing: 'list' });
-    },
-
     render: function () {
-      var listClassName = this.state.showing === 'list' ?  '' : 'left',
-          detailClassName = this.state.showing === 'detail' ? '' : 'right';
-
       return (
         <div className='application'>
-          <BusesList className={listClassName} buses={this.state.buses} onSelect={this.selectBus}></BusesList>
-          <BusDetail className={detailClassName} bus={this.state.selectedBus} onClose={this.closeSelection}></BusDetail>
+          <BusesList buses={this.state.buses} selectedBus={this.state.selectedBus} onSelect={handleBusSelection.bind(this)}></BusesList>
         </div>
       )
     }
   });
+
+
+  function handleBusSelection (bus) {
+    var that = this;
+
+    that.setState({
+      selectedBus: bus
+    });
+
+    BusDetailService.fetch(bus.number, function (data) {
+      _(bus).extend(data);
+      that.forceUpdate();
+    });
+  }
+
 
   return Application;
 
