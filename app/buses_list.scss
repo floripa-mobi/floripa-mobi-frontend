@@ -1,0 +1,13 @@
+.buses-list {
+  @include panel;
+
+  padding: 0;
+
+  > li {
+    border-bottom: 1px solid blue;
+    list-style-type: none;
+    font-size: 1.5em;
+    padding: 1em 0;
+    cursor: pointer;
+  }
+}

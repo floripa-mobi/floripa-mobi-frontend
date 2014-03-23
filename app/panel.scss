@@ -1,0 +1,11 @@
+@mixin panel {
+  width: 100%;
+
+  &.left {
+    display: none;
+  }
+
+  &.right {
+    display: none;
+  }
+}

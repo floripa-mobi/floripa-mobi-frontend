@@ -17,6 +17,12 @@
   var config = {
     baseUrl: '',
     paths: {
+      'underscore': 'bower_components/underscore/underscore',
+      'fastclick': 'bower_components/fastclick/lib/fastclick',
+      'jsx': 'bower_components/jsx-requirejs-plugin/js/jsx',
+      'text': 'bower_components/jsx-requirejs-plugin/js/text',
+      'react': 'bower_components/jsx-requirejs-plugin/js/react-0.8.0',
+      'JSXTransformer': 'bower_components/jsx-requirejs-plugin/js/JSXTransformer-0.8.0',
     }
   };
 
