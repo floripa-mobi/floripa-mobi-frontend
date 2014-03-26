@@ -18,7 +18,7 @@
   "dependencies": {
     "requirejs": "~2.1.9",
     "normalize-css": "~3.0.0",
-    "jsx-requirejs-plugin": "git@github.com:philix/jsx-requirejs-plugin.git",
+    "jsx-requirejs-plugin": "git@github.com:pirelenito/jsx-requirejs-plugin.git",
     "bourbon": "~3.1.8",
     "underscore": "~1.6.0",
     "fastclick": "~1.0.0"

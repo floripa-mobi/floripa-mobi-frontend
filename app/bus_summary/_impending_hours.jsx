@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 define([
   'underscore',
   'react',
@@ -18,7 +20,7 @@ function (_, React, proximity) {
         <section className={className}>
           {
             _(schedules).map(function (schedule) {
-              return <Schedule key={schedule.origin} schedule={schedule}></Schedule>
+              return <Schedule key={schedule.origin} schedule={schedule}></Schedule>;
             })
           }
         </section>
@@ -52,12 +54,12 @@ function (_, React, proximity) {
           <ol className='hours'>
             {
               _(proximityMinutes).map(function (hour) {
-                return <li key={hour} className={hourClass(hour, current)}>{formatHour(hour)}</li>
+                return <li key={hour} className={hourClass(hour, current)}>{formatHour(hour)}</li>;
               })
             }
           </ol>
         </div>
-      )
+      );
     }
   });
 
@@ -69,7 +71,7 @@ function (_, React, proximity) {
 
   function hourClass (hour, current) {
     if (hour < current) { return 'missed'; }
-    if (hour >= current) { return 'available'; };
+    if (hour >= current) { return 'available'; }
   }
 
 

@@ -1,10 +1,13 @@
+/** @jsx React.DOM */
+
 define([
   'react',
+  'underscore',
   'app/services/buses_list_service',
   'app/services/bus_detail_service',
   'jsx!app/buses_list'
 ],
-function (React, BusesListService, BusDetailService, BusesList, BusDetail) {
+function (React, _, BusesListService, BusDetailService, BusesList) {
 
   var Application = React.createClass({
     getInitialState: function () {
@@ -27,7 +30,7 @@ function (React, BusesListService, BusDetailService, BusesList, BusDetail) {
         <div className='application'>
           <BusesList buses={this.state.buses} selectedBus={this.state.selectedBus} onSelect={handleBusSelection.bind(this)}></BusesList>
         </div>
-      )
+      );
     }
   });
 

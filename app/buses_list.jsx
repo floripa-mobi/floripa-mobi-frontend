@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 define([
   'react',
   'underscore',
@@ -23,21 +25,21 @@ function (React, _, BusSummary) {
           {_(buses).map(function (bus) {
             return <li key={bus.number}>
               <BusSummary bus={bus} showSchedule={isScheduleVisible.call(that, bus)} onClick={handleBusClick.bind(that, bus)}></BusSummary>
-            </li>
+            </li>;
           })}
         </ol>
-      )
+      );
     }
   });
 
 
   function isScheduleVisible (bus) {
-    return this.props.selectedBus && bus.number === this.props.selectedBus.number
+    return this.props.selectedBus && bus.number === this.props.selectedBus.number;
   }
 
 
   function handleBusClick (bus) {
-    this.props.onSelect && this.props.onSelect(bus);
+    if (this.props.onSelect) { this.props.onSelect(bus); }
   }
 
 

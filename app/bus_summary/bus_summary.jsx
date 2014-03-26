@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 define([
   'react',
   'jsx!app/bus_summary/_impending_hours'
