@@ -80,7 +80,11 @@ module.exports = function(grunt) {
       compile: {
         options: _.extend(require('./config/require_config'), {
           name: "index",
-          out: "build/index.js"
+          out: "build/index.js",
+          exclude: ["jsx"],
+          onBuildWrite: function (moduleName, path, singleContents) {
+            return singleContents.replace(/jsx!/g, '');
+          }
         })
       }
     },
