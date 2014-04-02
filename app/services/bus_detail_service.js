@@ -3,7 +3,7 @@ define([
 ],
 function (loadJSON) {
   function fetch (number, callback) {
-    loadJSON('/'+number+'.json', function (data) {
+    loadJSON('/data/'+number+'.json', function (data) {
       callback(data);
     }, function () {
       callback({});
