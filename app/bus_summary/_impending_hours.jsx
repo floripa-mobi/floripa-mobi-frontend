@@ -14,7 +14,7 @@ function (_, React, proximity) {
   var ImpendingHours = React.createClass({
     render: function () {
       var schedules = findCurrentSchedules(this.props.schedules),
-          className = 'impending-hours' + this.props.className;
+          className = 'impending-hours';
 
       return (
         <section className={className}>
@@ -50,7 +50,7 @@ function (_, React, proximity) {
 
       return (
         <div className='schedule'>
-          <h2>{schedule.origin}</h2>
+          <h2 className='direction'>{schedule.origin}</h2>
           <ol className='hours'>
             {
               _(proximityMinutes).map(function (hour) {
@@ -65,7 +65,9 @@ function (_, React, proximity) {
 
 
   function formatHour (minutes) {
-    return Math.floor(minutes / 60) + ':' + minutes % 60;
+    var minutesInTheHour = minutes % 60;
+
+    return Math.floor(minutes / 60) + ':' + (minutesInTheHour < 10 ? '0' + minutesInTheHour : minutesInTheHour);
   }
 
 

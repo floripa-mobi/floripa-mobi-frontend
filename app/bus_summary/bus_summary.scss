@@ -1,48 +1,34 @@
 .bus-summary {
-  background: white;
   padding: 0.2em;
   cursor: pointer;
+  border-bottom: 1px solid $pale-purple;
+  padding: 1em;
+
+  .bus-name {
+    color: $white;
+    font-size: 1.2em;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .company-name {
+    color: $white;
+    font-style: italic;
+    font-weight: normal;
+    font-size: 0.9em;
+    margin-top: 0.2em;
+    margin-bottom: 0;
+  }
 
   .number {
-    color: gray;
-    font-size: 0.8em;
-    margin-left: 0.5em;
+    &:before {
+      content: '-';
+      margin: 0 0.2em;
+    }
   }
 
-  h1 {
-    font-size: 1.4em;
-  }
-
-  h2 {
-    font-size: 1.2em;
-  }
-
-  h1, h2 {
-    padding-left: 1rem;
-  }
-
-  ol {
-    padding: 0;
-    overflow: hidden;
-  }
-
-  li {
-    list-style-type: none;
-    float: left;
-    width: 33%;
-    text-align: center;
-  }
-
-  .schedule {
-    margin-bottom: 2em;
-  }
-
-  .missed {
-    color: red;
-  }
-
-  .available {
-    color: green;
+  .impending-hours {
+    margin-top: 1.5em;
   }
 }
 

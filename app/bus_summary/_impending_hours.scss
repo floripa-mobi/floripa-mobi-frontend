@@ -1,0 +1,28 @@
+.impending-hours {
+  color: $white;
+
+  .direction {
+    color: $light-orange;
+    font-size: 0.9em;
+  }
+
+  ol {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  li {
+    display: inline-block;
+    list-style-type: none;
+    text-align: center;
+    margin-right: 1em;
+    padding: 0.2em;
+  }
+
+  .available {
+    font-weight: 700;
+    border-radius: 4px;
+    background: $white;
+    color: $dark-purple;
+  }
+}

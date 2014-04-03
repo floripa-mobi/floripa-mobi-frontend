@@ -22,7 +22,8 @@ function (React, ImpendingHours) {
 
       return (
         <article className='bus-summary' onClick={this.handleClick}>
-          <h1>{bus.name} <span className='number'>{bus.number}</span></h1>
+          <h1 className='bus-name'>{bus.name} <span className='number'>{bus.number}</span></h1>
+          <h2 className="company-name">{bus.company || 'Public'}</h2>
           { showSchedule && <ImpendingHours schedules={bus.schedules}></ImpendingHours> }
         </article>
       );

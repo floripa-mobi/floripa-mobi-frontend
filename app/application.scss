@@ -1,8 +1,6 @@
-.application, h1, h2 {
-  font-weight: lighter;
-}
-
 body {
+  font-family: Quicksand;
   font-size: 14px;
-  background: #22719f;
+  background: $dark-purple;
+  color: $light-orange;
 }
