@@ -3,5 +3,5 @@
 # Deploy
 
 ```shell
-rsync -r build/* root@floripa.mobi:/usr/share/nginx/www
+rsync -rv build/* root@floripa.mobi:/usr/share/nginx/www
 ```
