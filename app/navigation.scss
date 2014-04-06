@@ -1,0 +1,23 @@
+.navigation {
+  background: $dark-orange;
+  line-height: 3em;
+  overflow: hidden;
+
+  li {
+    list-style-type: none;
+  }
+
+  ol {
+    padding: 0;
+    margin: 0;
+  }
+
+  .add-favorite-bus {
+    -webkit-appearance: none;
+    border: none;
+    background: white;
+    padding: 0 1.5em;
+    color: black;
+    float: right;
+  }
+}

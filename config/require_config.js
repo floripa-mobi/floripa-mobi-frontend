@@ -22,7 +22,8 @@
       'jsx': 'bower_components/jsx-requirejs-plugin/js/jsx',
       'text': 'bower_components/jsx-requirejs-plugin/js/text',
       'react': 'bower_components/jsx-requirejs-plugin/js/react-with-addons-0.10.0',
-      'JSXTransformer': 'bower_components/jsx-requirejs-plugin/js/JSXTransformer-0.10.0'
+      'JSXTransformer': 'bower_components/jsx-requirejs-plugin/js/JSXTransformer-0.10.0',
+      'hammer': 'bower_components/hammerjs/hammer'
     },
     packages: [
       { name: 'when', location: 'bower_components/when', main: 'when' }

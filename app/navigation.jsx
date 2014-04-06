@@ -14,10 +14,10 @@ function (React) {
 
     render: function () {
       return (
-        <header>
+        <header className='navigation'>
           <nav>
             <ol>
-              <li><button class="add-favorite-bus" onClick={this.props.onClickAdd}>Add</button></li>
+              <li><button className="add-favorite-bus" onClick={this.props.onClickAdd}>Add</button></li>
             </ol>
           </nav>
         </header>

@@ -7,13 +7,20 @@ define([
 ],
 function (React, _, BusSummary) {
   var Home = React.createClass({
+    getDefaultProps: function () {
+      return {
+        onDelete: function () {}
+      };
+    },
+
     render: function () {
-      var buses = this.props.buses;
+      var that = this,
+          buses = this.props.buses;
 
       return (<ol className='home'>
         {_(buses).map(function (bus) {
           return <li key={bus.number}>
-            <BusSummary bus={bus} showSchedule='true'></BusSummary>
+            <BusSummary bus={bus} showSchedule='true' onDelete={that.props.onDelete.bind(that, bus)}></BusSummary>
           </li>;
         })}
       </ol>);

@@ -46,7 +46,7 @@ function (when, React, _, BusesListService, BusDetailService, UserService, Buses
 
     render: function () {
       var showHome = this.state.favoriteBuses.length > 0 && !this.state.showSelectionList,
-          home = <Home buses={this.state.favoriteBuses}/>,
+          home = <Home buses={this.state.favoriteBuses} onDelete={handleBusDeletion.bind(this)}/>,
           selectionList = <BusesList buses={this.state.buses} selectedBus={this.state.selectedBus} onSelect={handleBusSelection.bind(this)}></BusesList>;
 
       return (
@@ -61,6 +61,17 @@ function (when, React, _, BusesListService, BusDetailService, UserService, Buses
 
   function openBusSelectionList () {
     this.setState({ showSelectionList: true });
+  }
+
+
+  function handleBusDeletion (bus) {
+    var that = this,
+        favoriteBuses = that.state.favoriteBuses;
+
+    favoriteBuses = _(favoriteBuses).without(bus);
+    that.setState({
+      favoriteBuses: favoriteBuses
+    });
   }
 
 
