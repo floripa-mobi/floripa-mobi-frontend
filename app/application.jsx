@@ -1,34 +1,55 @@
 /** @jsx React.DOM */
 
 define([
+  'when',
   'react',
   'underscore',
   'app/services/buses_list_service',
   'app/services/bus_detail_service',
-  'jsx!app/buses_list'
+  'app/services/user_service',
+  'jsx!app/buses_list',
+  'jsx!app/home/home'
 ],
-function (React, _, BusesListService, BusDetailService, BusesList) {
+function (when, React, _, BusesListService, BusDetailService, UserService, BusesList, Home) {
 
   var Application = React.createClass({
     getInitialState: function () {
       return {
         buses: [],
-        selectedBus: null
+        favoriteBuses: []
       };
     },
 
     componentWillMount: function () {
       var that = this;
 
-      BusesListService.fetch(function (buses) {
-        that.setState({ buses: buses });
+      UserService.fetch().then(function (user) {
+        that.setState({ user: user });
+        var promises = _(user.favoriteBuses).map(function (busNumber) {
+          return BusDetailService.fetch(busNumber);
+        });
+
+        return when.all(promises);
+      }).then(function (buses) {
+        that.setState({ favoriteBuses: buses });
+
+        if (buses.length === 0) {
+
+          return BusesListService.fetch().then(function (buses) {
+            that.setState({ buses: buses });
+          });
+        }
       });
     },
 
     render: function () {
+      var showHome = this.state.favoriteBuses.length > 0,
+          home = <Home buses={this.state.favoriteBuses}/>,
+          selectionList = <BusesList buses={this.state.buses} selectedBus={this.state.selectedBus} onSelect={handleBusSelection.bind(this)}></BusesList>;
+
       return (
         <div className='application'>
-          <BusesList buses={this.state.buses} selectedBus={this.state.selectedBus} onSelect={handleBusSelection.bind(this)}></BusesList>
+          {showHome ? home : selectionList}
         </div>
       );
     }
@@ -36,13 +57,13 @@ function (React, _, BusesListService, BusDetailService, BusesList) {
 
 
   function handleBusSelection (bus) {
-    var that = this;
+    var that = this,
+        favoriteBuses = that.state.favoriteBuses;
 
-    that.setState({
-      selectedBus: bus
-    });
+    favoriteBuses.push(bus);
+    that.setState({ favoriteBuses: favoriteBuses });
 
-    BusDetailService.fetch(bus.number, function (data) {
+    BusDetailService.fetch(bus.number).then(function (data) {
       _(bus).extend(data);
       that.forceUpdate();
     });

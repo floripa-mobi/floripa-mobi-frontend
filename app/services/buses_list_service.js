@@ -1,16 +1,22 @@
 define([
+  'when',
   'app/helpers/load_json'
 ],
-function (loadJSON) {
-  function fetch (callback) {
-    loadJSON('/data/index.json', function (data) {
-      callback(data);
-    }, function () {
-      callback([]);
+function (when, loadJSON) {
+
+  function fetch () {
+    return when.promise(function (resolve) {
+      loadJSON('/data/index.json', function (data) {
+        resolve(data);
+      }, function () {
+        resolve([]);
+      });
     });
   }
+
 
   return {
     fetch: fetch
   };
+
 });
