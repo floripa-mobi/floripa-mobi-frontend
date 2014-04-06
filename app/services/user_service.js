@@ -4,15 +4,24 @@ define([
 
   function fetch () {
     return when.promise(function (resolve) {
-      resolve({
-        favoriteBuses: []
-      });
+      var data = localStorage.getItem('user_data'),
+          user = data && JSON.parse(data) || {};
+
+      resolve(user);
+    });
+  }
+
+
+  function save (user) {
+    return when.promise(function (resolve) {
+      localStorage.setItem('user_data', JSON.stringify(user));
     });
   }
 
 
   return {
-    fetch: fetch
+    fetch: fetch,
+    save: save
   };
 
 });

@@ -36,10 +36,7 @@ function (when, React, _, BusesListService, BusDetailService, UserService, Buses
         that.setState({ favoriteBuses: buses });
 
         if (buses.length === 0) {
-
-          return BusesListService.fetch().then(function (buses) {
-            that.setState({ buses: buses });
-          });
+          return fetchBusesList.call(this);
         }
       });
     },
@@ -61,6 +58,7 @@ function (when, React, _, BusesListService, BusDetailService, UserService, Buses
 
   function openBusSelectionList () {
     this.setState({ showSelectionList: true });
+    if (this.state.buses.length === 0) { fetchBusesList.call(this); }
   }
 
 
@@ -72,6 +70,8 @@ function (when, React, _, BusesListService, BusDetailService, UserService, Buses
     that.setState({
       favoriteBuses: favoriteBuses
     });
+
+    saveUserState.call(this);
   }
 
 
@@ -89,6 +89,26 @@ function (when, React, _, BusesListService, BusDetailService, UserService, Buses
       _(bus).extend(data);
       that.forceUpdate();
     });
+
+    saveUserState.call(this);
+  }
+
+
+  function fetchBusesList () {
+    var that = this;
+
+    return BusesListService.fetch().then(function (buses) {
+      that.setState({ buses: buses });
+    });
+  }
+
+
+  function saveUserState () {
+    this.state.user.favoriteBuses = _(this.state.favoriteBuses).map(function (bus) {
+      return bus.number;
+    });
+
+    UserService.save(this.state.user);
   }
 
 
