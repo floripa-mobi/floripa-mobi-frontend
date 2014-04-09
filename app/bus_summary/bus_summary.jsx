@@ -39,7 +39,7 @@ function (React, Hammer, ImpendingHours) {
       return (
         <article className='bus-summary' onClick={this.props.onClick}>
           <h1 className='bus-name'>{bus.name} <span className='number'>{bus.number}</span></h1>
-          <h2 className="company-name">{bus.company || 'Public'}</h2>
+          { showSchedule && <h2 className="company-name">{bus.company || 'Public'}</h2> }
           { showSchedule && <ImpendingHours schedules={bus.schedules}></ImpendingHours> }
         </article>
       );
