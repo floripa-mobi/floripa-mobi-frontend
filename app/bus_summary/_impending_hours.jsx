@@ -44,9 +44,10 @@ function (_, React, proximity) {
         return split[0] * 60 + parseInt(split[1], 10);
       });
 
-      var current = new Date().getHours() * 60 + new Date().getMinutes();
+      var now = new Date().getHours() * 60 + new Date().getMinutes(),
+          closestHour = null;
 
-      var proximityMinutes = _(proximity(minutes, current));
+      var proximityMinutes = _(proximity(minutes, now));
 
       return (
         <div className='schedule'>
@@ -54,7 +55,9 @@ function (_, React, proximity) {
           <ol className='hours'>
             {
               _(proximityMinutes).map(function (hour) {
-                return <li key={hour} className={hourClass(hour, current)}>{formatHour(hour)}</li>;
+                if (hour > now && !closestHour) { closestHour = hour; }
+
+                return <li key={hour} className={closestHour === hour && 'next'}>{formatHour(hour)}</li>;
               })
             }
           </ol>
@@ -68,12 +71,6 @@ function (_, React, proximity) {
     var minutesInTheHour = minutes % 60;
 
     return Math.floor(minutes / 60) + ':' + (minutesInTheHour < 10 ? '0' + minutesInTheHour : minutesInTheHour);
-  }
-
-
-  function hourClass (hour, current) {
-    if (hour < current) { return 'missed'; }
-    if (hour >= current) { return 'available'; }
   }
 
 
