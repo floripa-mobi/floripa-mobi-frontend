@@ -79,7 +79,10 @@ function (when, React, _, BusesListService, BusDetailService, UserService, Buses
     var that = this,
         favoriteBuses = that.state.favoriteBuses;
 
-    favoriteBuses.push(bus);
+    if (!_(favoriteBuses).findWhere({ number: bus.number })) {
+      favoriteBuses.push(bus);
+    }
+
     that.setState({
       favoriteBuses: favoriteBuses,
       showSelectionList: false
