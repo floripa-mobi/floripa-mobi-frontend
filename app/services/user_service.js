@@ -15,6 +15,7 @@ define([
   function save (user) {
     return when.promise(function (resolve) {
       localStorage.setItem('user_data', JSON.stringify(user));
+      resolve(user);
     });
   }
 
