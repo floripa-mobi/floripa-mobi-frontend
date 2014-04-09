@@ -9,5 +9,8 @@ function (React, FastClick, Application) {
     document.getElementById('main')
   );
 
+  // removes loading
+  document.getElementById('body').className = '';
+
   FastClick.attach(document.body);
 });

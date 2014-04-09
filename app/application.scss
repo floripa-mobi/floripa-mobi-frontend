@@ -3,4 +3,13 @@ body {
   font-size: 1em;
   background: $dark-purple;
   color: $light-orange;
+
+  &.loading {
+    background-color: $light-orange;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: white;
+
+    @include retina-image(app/splash/logo-splash-ani, 135px 118px, 'gif');
+  }
 }
