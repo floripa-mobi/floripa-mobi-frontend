@@ -9,7 +9,8 @@ define([
   'app/services/user_service',
   'jsx!app/buses_list',
   'jsx!app/home/home',
-  'jsx!app/navigation'
+  'jsx!app/navigation',
+  'app/helpers/analytics'
 ],
 function (when, React, _, BusesListService, BusDetailService, UserService, BusesList, Home, Navigation) {
 
