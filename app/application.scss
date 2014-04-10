@@ -13,3 +13,7 @@ body {
     @include retina-image(app/splash/logo-splash-ani, 135px 118px, 'gif');
   }
 }
+
+*:focus {
+  outline: 0;
+}
