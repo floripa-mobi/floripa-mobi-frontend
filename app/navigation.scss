@@ -1,9 +1,9 @@
 .navigation {
   background: $light-orange;
   overflow: hidden;
-  height: 46px;
-  padding-top: 20px;
-  padding-right: 20px;
+  height: 60px;
+  padding-top: 10px;
+  padding-right: 10px;
 
   &.loading {
     @include retina-image(app/navigation/logo-header-loading, 38px 33px, 'gif');
@@ -27,9 +27,12 @@
     background-color: transparent;
     -webkit-appearance: none;
     float: right;
+    padding: 0;
 
     @include retina-image(app/navigation/bt-header-search, 23px 23px);
-    @include size(23px 23px);
+    background-repeat: no-repeat;
+    background-position: center;
+    @include size(50px 50px);
     @include hide-text;
   }
 }
