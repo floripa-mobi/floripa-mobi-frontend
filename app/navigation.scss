@@ -5,6 +5,10 @@
   padding-top: 20px;
   padding-right: 20px;
 
+  &.loading {
+    @include retina-image(app/navigation/logo-header-loading, 38px 33px, 'gif');
+  }
+
   @include retina-image(app/navigation/logo-header, 38px 33px);
   background-repeat: no-repeat;
   background-position: center;

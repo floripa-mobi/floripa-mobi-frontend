@@ -19,12 +19,15 @@ function (when, React, _, BusesListService, BusDetailService, UserService, Buses
       return {
         buses: [],
         favoriteBuses: [],
-        showSelectionList: false
+        showSelectionList: false,
+        loading: false
       };
     },
 
     componentWillMount: function () {
       var that = this;
+
+      this.setState({ loading: true });
 
       UserService.fetch().then(function (user) {
         that.setState({ user: user });
@@ -39,17 +42,20 @@ function (when, React, _, BusesListService, BusDetailService, UserService, Buses
         if (buses.length === 0) {
           return fetchBusesList.call(this);
         }
+      }).then(function () {
+        that.setState({ loading: false });
       });
     },
 
     render: function () {
       var showHome = this.state.favoriteBuses.length > 0 && !this.state.showSelectionList,
           home = <Home buses={this.state.favoriteBuses} onDelete={handleBusDeletion.bind(this)}/>,
-          selectionList = <BusesList buses={this.state.buses} selectedBus={this.state.selectedBus} onSelect={handleBusSelection.bind(this)}></BusesList>;
+          selectionList = <BusesList buses={this.state.buses} selectedBus={this.state.selectedBus} onSelect={handleBusSelection.bind(this)}></BusesList>,
+          loading = this.state.loading;
 
       return (
         <div className='application'>
-          <Navigation onClickAdd={openBusSelectionList.bind(this)}/>
+          <Navigation loading={loading} onClickAdd={openBusSelectionList.bind(this)}/>
           {showHome ? home : selectionList}
         </div>
       );
@@ -89,9 +95,13 @@ function (when, React, _, BusesListService, BusDetailService, UserService, Buses
       showSelectionList: false
     });
 
+    this.setState({ loading: true });
+
     BusDetailService.fetch(bus.number).then(function (data) {
       _(bus).extend(data);
       that.forceUpdate();
+    }).then(function () {
+      that.setState({ loading: false });
     });
 
     saveUserState.call(this);
@@ -101,8 +111,12 @@ function (when, React, _, BusesListService, BusDetailService, UserService, Buses
   function fetchBusesList () {
     var that = this;
 
+    this.setState({ loading: true });
+
     return BusesListService.fetch().then(function (buses) {
       that.setState({ buses: buses });
+    }).then(function () {
+      that.setState({ loading: false });
     });
   }
 

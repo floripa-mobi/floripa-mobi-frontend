@@ -13,8 +13,11 @@ function (React) {
     },
 
     render: function () {
+      var loading = this.props.loading,
+          className = loading ? 'navigation loading' : 'navigation';
+
       return (
-        <header className='navigation'>
+        <header className={className}>
           <nav>
             <ol>
               <li><button className="add-favorite-bus" onClick={this.props.onClickAdd}>Add</button></li>
