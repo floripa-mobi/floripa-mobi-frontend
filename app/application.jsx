@@ -45,6 +45,11 @@ function (when, React, _, BusesListService, BusDetailService, UserService, Buses
       }).then(function () {
         that.setState({ loading: false });
       });
+
+      // updates the schedule every minute
+      setInterval(function () {
+        that.forceUpdate();
+      }, 60000);
     },
 
     render: function () {
