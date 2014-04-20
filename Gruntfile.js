@@ -79,6 +79,7 @@ module.exports = function(grunt) {
     requirejs: {
       compile: {
         options: _.extend(require('./config/require_config'), {
+          preserveLicenseComments: false,
           name: "index",
           out: "build/index.js",
           exclude: ["jsx"],
