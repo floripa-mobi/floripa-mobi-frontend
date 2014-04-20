@@ -1,9 +1,6 @@
 var _ = require('underscore'),
-    fs = require('fs'),
     path = require('path'),
-    configPath = path.join(__dirname, '/config/scss_config.json'),
-    config = JSON.parse(fs.readFileSync(configPath)),
-    includePaths = config.includePaths.map(function (scssPath) { return path.join(__dirname, scssPath); });
+    appRoot = path.join(__dirname, 'app');
 
 
 /**
@@ -16,8 +13,8 @@ function sassMiddleware (connect, options) {
       directory = options.directory || options.base[options.base.length - 1];
 
   middlewares.push(sass.middleware({
-    src: __dirname,
-    includePaths: includePaths,
+    src: appRoot,
+    includePaths: appRoot,
     dest: sassDest,
     force: true
   }));
@@ -42,7 +39,7 @@ module.exports = function(grunt) {
           hostname: '*',
           keepalive: true,
           base: [
-            __dirname
+            appRoot
           ],
           middleware: sassMiddleware
         }
@@ -52,17 +49,13 @@ module.exports = function(grunt) {
     watch: {
       livereload: {
         files: [
-          '*.hmtl',
-          '*.scss',
-          '*.js'
+          'app/*.hmtl',
+          'app/*.scss',
+          'app/*.js'
         ],
         options: {
           livereload: true
         },
-      },
-      bowerDependencies: {
-        files: ['bower_components/**/*.css'],
-        tasks: ['copy:bowerDependenciesAsSCSS']
       }
     },
 
@@ -72,15 +65,16 @@ module.exports = function(grunt) {
           stream: true,
           grunt: true
         },
-        tasks: ['watch:livereload', 'watch:bowerDependencies', 'connect']
+        tasks: ['watch:livereload', 'connect']
       }
     },
 
     requirejs: {
       compile: {
-        options: _.extend(require('./config/require_config'), {
+        options: _.extend(require('./app/config/require_config'), {
           preserveLicenseComments: false,
           name: "index",
+          baseUrl: 'app',
           out: "build/index.js",
           exclude: ["jsx"],
           onBuildWrite: function (moduleName, path, singleContents) {
@@ -92,11 +86,11 @@ module.exports = function(grunt) {
 
     sass: {
       options: {
-        includePaths: includePaths
+        includePaths: [appRoot]
       },
       all: {
         files: {
-          'build/index.css': 'index.scss'
+          'build/index.css': 'app/index.scss'
         }
       }
     },
@@ -106,9 +100,9 @@ module.exports = function(grunt) {
         files: [
           {
             expand: true,
-            cwd: 'bower_components',
+            cwd: 'app/vendor/bower_components',
             src: ['**/*.css', '!**/*.min.css'],
-            dest: 'bower_components',
+            dest: 'app/vendor/bower_components',
             ext: ".scss"
           }
         ]
@@ -116,23 +110,23 @@ module.exports = function(grunt) {
 
       build: {
         files: [
-          { src: 'index.html', dest: 'build/index.html' },
-          { expand: true, src: 'app/**/*.png', dest: 'build' },
-          { expand: true, src: 'app/**/*.gif', dest: 'build' },
-          { expand: true, src: 'vendor/**/*', dest: 'build' },
-          { expand: true, src: 'bower_components/requirejs/require.js', dest: 'build' },
-          { expand: true, src: 'config/require_config.js', dest: 'build' }
+          { src: 'app/index.html', dest: 'build/index.html' },
+          { expand: true, cwd: 'app', src: '**/*.png', dest: 'build' },
+          { expand: true, cwd: 'app', src: '**/*.gif', dest: 'build' },
+          { expand: true, cwd: 'app', src: 'vendor/quick_sand/*', dest: 'build' },
+          { expand: true, cwd: 'app', src: 'vendor/bower_components/requirejs/require.js', dest: 'build' },
+          { expand: true, cwd: 'app', src: 'config/require_config.js', dest: 'build' }
         ]
       }
     },
 
     karma: {
       options: {
-        basePath: '',
+        basePath: 'app',
         frameworks: ['jasmine', 'requirejs'],
         files: [
-          'bower_components/sinonjs/sinon.js',
-          'bower_components/jasmine-sinon/lib/jasmine-sinon.js',
+          'vendor/bower_components/sinonjs/sinon.js',
+          'vendor/bower_components/jasmine-sinon/lib/jasmine-sinon.js',
           'config/require_config.js',
           'spec/spec_runner.js',
           { pattern: './**/*.js', included: false }
@@ -154,7 +148,7 @@ module.exports = function(grunt) {
       options: {
         jshintrc: true
       },
-      all: ['app/**/*.js', 'spec/**/*.js', 'config/**/*.js']
+      all: ['app/src/**/*.js', 'app/spec/**/*.js', 'app/config/**/*.js']
     },
 
     appcache: {
@@ -169,6 +163,7 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.loadNpmTasks('grunt-appcache');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-contrib-copy');
@@ -177,13 +172,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-parallel');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-appcache');
 
   // It is advisable to use only registered tasks and not their
   // plugin implementations.
 
-  grunt.registerTask('build', ['copy:bowerDependenciesAsSCSS', 'copy:build', 'sass', 'requirejs', 'appcache']);
-  grunt.registerTask('dev', ['copy:bowerDependenciesAsSCSS', 'parallel:dev']);
+  grunt.registerTask('build', ['copy:build', 'sass', 'requirejs', 'appcache']);
+  grunt.registerTask('dev', ['parallel:dev']);
   grunt.registerTask('spec', ['jshint', 'karma:build']);
   grunt.registerTask('watch_spec', 'karma:watch');
 

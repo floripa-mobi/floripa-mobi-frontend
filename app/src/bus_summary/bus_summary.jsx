@@ -3,7 +3,7 @@
 define([
   'react',
   'hammer',
-  'jsx!app/bus_summary/_impending_hours'
+  'jsx!src/bus_summary/_impending_hours'
 ],
 function (React, Hammer, ImpendingHours) {
   /**

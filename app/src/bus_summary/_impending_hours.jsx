@@ -3,7 +3,7 @@
 define([
   'underscore',
   'react',
-  'app/bus_summary/_proximity'
+  'src/bus_summary/_proximity'
 ],
 function (_, React, proximity) {
   /**

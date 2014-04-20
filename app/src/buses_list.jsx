@@ -3,7 +3,7 @@
 define([
   'react',
   'underscore',
-  'jsx!app/bus_summary/bus_summary'
+  'jsx!src/bus_summary/bus_summary'
 ],
 function (React, _, BusSummary) {
 

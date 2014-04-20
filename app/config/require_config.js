@@ -17,16 +17,16 @@
   var config = {
     baseUrl: '',
     paths: {
-      'underscore': 'bower_components/underscore/underscore',
-      'fastclick': 'bower_components/fastclick/lib/fastclick',
-      'jsx': 'bower_components/jsx-requirejs-plugin/js/jsx',
-      'text': 'bower_components/jsx-requirejs-plugin/js/text',
-      'react': 'bower_components/jsx-requirejs-plugin/js/react-with-addons-0.10.0',
-      'JSXTransformer': 'bower_components/jsx-requirejs-plugin/js/JSXTransformer-0.10.0',
-      'hammer': 'bower_components/hammerjs/hammer'
+      'underscore': 'vendor/bower_components/underscore/underscore',
+      'fastclick': 'vendor/bower_components/fastclick/lib/fastclick',
+      'jsx': 'vendor/bower_components/jsx-requirejs-plugin/js/jsx',
+      'text': 'vendor/bower_components/jsx-requirejs-plugin/js/text',
+      'react': 'vendor/bower_components/jsx-requirejs-plugin/js/react-with-addons-0.10.0',
+      'JSXTransformer': 'vendor/bower_components/jsx-requirejs-plugin/js/JSXTransformer-0.10.0',
+      'hammer': 'vendor/bower_components/hammerjs/hammer'
     },
     packages: [
-      { name: 'when', location: 'bower_components/when', main: 'when' }
+      { name: 'when', location: 'vendor/bower_components/when', main: 'when' }
     ],
     jsx: {
       fileExtension: '.jsx'

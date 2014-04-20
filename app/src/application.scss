@@ -10,7 +10,7 @@ body {
     background-position: center;
     color: white;
 
-    @include retina-image(app/splash/logo-splash-ani, 135px 118px, 'gif');
+    @include retina-image(src/splash/logo-splash-ani, 135px 118px, 'gif');
   }
 }
 

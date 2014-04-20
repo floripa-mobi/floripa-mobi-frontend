@@ -1,15 +1,15 @@
 define([
   'when',
-  'app/helpers/load_json'
+  'src/helpers/load_json'
 ],
 function (when, loadJSON) {
 
-  function fetch () {
+  function fetch (number) {
     return when.promise(function (resolve) {
-      loadJSON('/data/index.json', function (data) {
+      loadJSON('/data/'+number+'.json', function (data) {
         resolve(data);
       }, function () {
-        resolve([]);
+        resolve({});
       });
     });
   }

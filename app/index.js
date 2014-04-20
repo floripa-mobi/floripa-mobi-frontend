@@ -1,7 +1,7 @@
 define([
   'react',
   'fastclick',
-  'jsx!app/application'
+  'jsx!src/application'
 ],
 function (React, FastClick, Application) {
   React.renderComponent(

@@ -1,7 +1,0 @@
-{
-  "includePaths": [
-    ".",
-    "bower_components/normalize-css",
-    "bower_components/bourbon/app/assets/stylesheets"
-  ]
-}

@@ -4,13 +4,13 @@ define([
   'when',
   'react',
   'underscore',
-  'app/services/buses_list_service',
-  'app/services/bus_detail_service',
-  'app/services/user_service',
-  'jsx!app/buses_list',
-  'jsx!app/home/home',
-  'jsx!app/navigation',
-  'app/helpers/analytics'
+  'src/services/buses_list_service',
+  'src/services/bus_detail_service',
+  'src/services/user_service',
+  'jsx!src/buses_list',
+  'jsx!src/home/home',
+  'jsx!src/navigation',
+  'src/helpers/analytics'
 ],
 function (when, React, _, BusesListService, BusDetailService, UserService, BusesList, Home, Navigation) {
 

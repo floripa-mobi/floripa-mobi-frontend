@@ -6,10 +6,10 @@
   padding-right: 10px;
 
   &.loading {
-    @include retina-image(app/navigation/logo-header-loading, 38px 33px, 'gif');
+    @include retina-image(src/navigation/logo-header-loading, 38px 33px, 'gif');
   }
 
-  @include retina-image(app/navigation/logo-header, 38px 33px);
+  @include retina-image(src/navigation/logo-header, 38px 33px);
   background-repeat: no-repeat;
   background-position: center;
 
@@ -29,7 +29,7 @@
     float: right;
     padding: 0;
 
-    @include retina-image(app/navigation/bt-header-search, 23px 23px);
+    @include retina-image(src/navigation/bt-header-search, 23px 23px);
     background-repeat: no-repeat;
     background-position: center;
     @include size(50px 50px);
