@@ -149,21 +149,9 @@ module.exports = function(grunt) {
         jshintrc: true
       },
       all: ['app/src/**/*.js', 'app/spec/**/*.js', 'app/config/**/*.js']
-    },
-
-    appcache: {
-      options: {
-        basePath: 'build'
-      },
-      all: {
-        dest: 'build/cache.manifest',
-        cache: 'build/**/*',
-        network: '*'
-      }
     }
   });
 
-  grunt.loadNpmTasks('grunt-appcache');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-contrib-copy');
@@ -176,7 +164,7 @@ module.exports = function(grunt) {
   // It is advisable to use only registered tasks and not their
   // plugin implementations.
 
-  grunt.registerTask('build', ['copy:build', 'sass', 'requirejs', 'appcache']);
+  grunt.registerTask('build', ['copy:build', 'sass', 'requirejs']);
   grunt.registerTask('dev', ['parallel:dev']);
   grunt.registerTask('spec', ['jshint', 'karma:build']);
   grunt.registerTask('watch_spec', 'karma:watch');
