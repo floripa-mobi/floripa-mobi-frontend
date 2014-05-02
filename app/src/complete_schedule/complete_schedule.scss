@@ -1,0 +1,49 @@
+.complete-schedule {
+  padding: 1em;
+
+  ol {
+    padding: 0;
+    list-style-type: none;
+  }
+
+  .line-name {
+    color: white;
+    font-size: 1.2em;
+  }
+
+  .hours {
+    overflow: hidden;
+    line-height: 1.5;
+  }
+
+  .hours-by-direction {
+    text-align: center;
+    float: left;
+    width: 50%;
+  }
+
+  .period-selector {
+    border: 4px solid white;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 2em;
+    font-size: 1.2em;
+
+    li {
+      display: inline-block;
+      width: 33%;
+      color: white;
+
+      &.selected, &:hover {
+        background: white;
+        color: $dark-purple;
+      }
+    }
+
+    button {
+      background: none;
+      border: none;
+      @include appearance(none);
+    }
+  }
+}
