@@ -20,7 +20,7 @@ function (React, _, BusSummary) {
       return (<ol className='home'>
         {_(buses).map(function (bus) {
           return <li key={bus.number}>
-            <BusSummary bus={bus} showSchedule='true' onDelete={that.props.onDelete.bind(that, bus)}></BusSummary>
+            <BusSummary bus={bus} showSchedule='true' onDelete={that.props.onDelete.bind(that, bus)} onClick={that.props.onSelect.bind(that, bus)}></BusSummary>
           </li>;
         })}
       </ol>);

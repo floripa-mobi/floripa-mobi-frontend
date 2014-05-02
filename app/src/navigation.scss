@@ -35,4 +35,18 @@
     @include size(50px 50px);
     @include hide-text;
   }
+
+  .back {
+    border: none;
+    background-color: transparent;
+    -webkit-appearance: none;
+    float: left;
+    padding: 0;
+
+    @include retina-image(src/navigation/bt-header-back, 23px 23px);
+    background-repeat: no-repeat;
+    background-position: center;
+    @include size(50px 50px);
+    @include hide-text;
+  }
 }

@@ -10,9 +10,10 @@ define([
   'jsx!src/buses_list',
   'jsx!src/home/home',
   'jsx!src/navigation',
+  'jsx!src/complete_schedule/complete_schedule',
   'src/helpers/analytics'
 ],
-function (when, React, _, BusesListService, BusDetailService, UserService, BusesList, Home, Navigation) {
+function (when, React, _, BusesListService, BusDetailService, UserService, BusesList, Home, Navigation, CompleteSchedule) {
 
   var Application = React.createClass({
     getInitialState: function () {
@@ -20,7 +21,8 @@ function (when, React, _, BusesListService, BusDetailService, UserService, Buses
         buses: [],
         favoriteBuses: [],
         showSelectionList: false,
-        loading: false
+        loading: false,
+        selectedBus: null
       };
     },
 
@@ -54,18 +56,30 @@ function (when, React, _, BusesListService, BusDetailService, UserService, Buses
 
     render: function () {
       var showHome = this.state.favoriteBuses.length > 0 && !this.state.showSelectionList,
-          home = <Home buses={this.state.favoriteBuses} onDelete={handleBusDeletion.bind(this)}/>,
-          selectionList = <BusesList buses={this.state.buses} selectedBus={this.state.selectedBus} onSelect={handleBusSelection.bind(this)}></BusesList>,
+          home = <Home buses={this.state.favoriteBuses} onDelete={handleBusDeletion.bind(this)} onSelect={handleBusDetail.bind(this)}/>,
+          selectionList = <BusesList buses={this.state.buses} onSelect={handleBusSelection.bind(this)}></BusesList>,
           loading = this.state.loading;
 
       return (
         <div className='application'>
-          <Navigation loading={loading} onClickAdd={openBusSelectionList.bind(this)}/>
-          {showHome ? home : selectionList}
+          <Navigation loading={loading} onClickAdd={openBusSelectionList.bind(this)} onClickBack={handleHomeClick.bind(this)}/>
+          {!showHome && selectionList}
+          {showHome && !this.state.selectedBus && home}
+          {showHome && this.state.selectedBus && <CompleteSchedule line={this.state.selectedBus}/>}
         </div>
       );
     }
   });
+
+
+  function handleBusDetail (bus) {
+    this.setState({ selectedBus: bus });
+  }
+
+
+  function handleHomeClick () {
+    this.setState({ showSelectionList: false, selectedBus: null });
+  }
 
 
   function openBusSelectionList () {
