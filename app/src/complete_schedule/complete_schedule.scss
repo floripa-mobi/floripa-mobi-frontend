@@ -22,28 +22,61 @@
     width: 50%;
   }
 
+  .direction {
+    font-size: 1em;
+  }
+
+  .next {
+    font-weight: 700;
+    border-radius: 4px;
+    background: $white;
+    color: $dark-purple;
+  }
+
   .period-selector {
-    border: 4px solid white;
-    border-radius: 5px;
     text-align: center;
-    line-height: 2em;
-    font-size: 1.2em;
 
     li {
       display: inline-block;
-      width: 33%;
       color: white;
+      width: 33%;
 
-      &.selected, &:hover {
-        background: white;
-        color: $dark-purple;
+      &:nth-child(3n+1) button {
+        border-right: none;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      &:nth-child(3n+2) button {
+        border-right: none;
+        border-left: none;
+        border-radius: 0;
+      }
+
+      &:nth-child(3n+3) button {
+        border-left: none;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
       }
     }
 
     button {
+      @include box-sizing(border-box);
+      border-radius: 5px;
+
+      width: 100%;
+      line-height: 2em;
+      font-size: 1.2em;
+      border: 4px solid white;
+
       background: none;
-      border: none;
       @include appearance(none);
+      padding: 0;
+
+      &.selected {
+        background: white;
+        color: $dark-purple;
+      }
     }
   }
 }

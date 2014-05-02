@@ -9,7 +9,7 @@ function (React, _) {
   var CompleteSchedule = React.createClass({
     getInitialState: function () {
       return {
-        period: 'weekday'
+        period: getCurrentPeriod()
       };
     },
 
@@ -33,15 +33,16 @@ function (React, _) {
 
 
   function renderPeriodSelector (periods) {
-    var that = this;
+    var that = this,
+        allPeriods = ['weekday', 'saturday', 'sunday'];
 
     return (
       <ol className="period-selector">
           {
-            _(periods).map(function (period) {
-              var className = period === that.state.period && 'selected';
-              return <li className={className}>
-                <button onClick={handlePeriodSelection.bind(that, period)}>{period}</button>
+            _(allPeriods).map(function (period) {
+              var className = (period === that.state.period && 'selected');
+              return <li>
+                <button className={className} onClick={handlePeriodSelection.bind(that, period)}>{translatePeriod(period)}</button>
               </li>;
             })
           }
@@ -51,13 +52,18 @@ function (React, _) {
 
 
   function renderHours (schedule) {
+    var now = new Date().getHours() * 60 + new Date().getMinutes(),
+        closestHour = null;
+
     return (
       <div className="hours-by-direction">
-        <h2>{schedule.origin} > {schedule.destination}</h2>
+        <h2 className="direction">{schedule.origin} > {schedule.destination}</h2>
         <ol>
           {
             _(schedule.hours).map(function (hour) {
-              return <li>{hour}</li>;
+              var minutes = minuteFromHours(hour);
+              if (minutes > now && !closestHour) { closestHour = minutes; }
+              return <li className={closestHour === minutes && 'next'}>{hour}</li>;
             })
           }
         </ol>
@@ -73,6 +79,32 @@ function (React, _) {
 
   function filterSchedulesByPeriod (schedules) {
     return _(schedules).groupBy('period');
+  }
+
+
+  function translatePeriod (period) {
+    var strings = {
+      weekday: 'Semana',
+      saturday: 'Sábado',
+      sunday: 'Domingo'
+    };
+
+    return strings[period.toLowerCase()];
+  }
+
+
+  function getCurrentPeriod () {
+    var dayOfTheWeek = new Date().getDay();
+
+    if (dayOfTheWeek === 0) { return 'sunday'; }
+    if (dayOfTheWeek === 6) { return 'saturday'; }
+    return 'weekday';
+  }
+
+
+  function minuteFromHours (hour) {
+    var split = hour.split(':');
+    return split[0] * 60 + parseInt(split[1], 10);
   }
 
 
