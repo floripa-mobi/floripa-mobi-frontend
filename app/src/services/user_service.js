@@ -5,7 +5,7 @@ define([
   function fetch () {
     return when.promise(function (resolve) {
       var data = localStorage.getItem('user_data'),
-          user = data && JSON.parse(data) || {};
+          user = data && JSON.parse(data) || { favoriteBuses: [] };
 
       resolve(user);
     });

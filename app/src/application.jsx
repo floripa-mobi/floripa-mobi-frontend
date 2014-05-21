@@ -10,10 +10,11 @@ define([
   'jsx!src/buses_list',
   'jsx!src/home/home',
   'jsx!src/navigation',
+  'jsx!src/welcome_screen',
   'jsx!src/complete_schedule/complete_schedule',
   'src/helpers/analytics'
 ],
-function (when, React, _, BusesListService, BusDetailService, UserService, BusesList, Home, Navigation, CompleteSchedule) {
+function (when, React, _, BusesListService, BusDetailService, UserService, BusesList, Home, Navigation, WelcomeScreen, CompleteSchedule) {
 
   var Application = React.createClass({
     getInitialState: function () {
@@ -32,6 +33,7 @@ function (when, React, _, BusesListService, BusDetailService, UserService, Buses
       this.setState({ loading: true });
 
       UserService.fetch().then(function (user) {
+
         that.setState({ user: user });
         var promises = _(user.favoriteBuses).map(function (busNumber) {
           return BusDetailService.fetch(busNumber);
@@ -42,7 +44,7 @@ function (when, React, _, BusesListService, BusDetailService, UserService, Buses
         that.setState({ favoriteBuses: buses });
 
         if (buses.length === 0) {
-          return fetchBusesList.call(this);
+          return fetchBusesList.call(that);
         }
       }).then(function () {
         that.setState({ loading: false });
@@ -55,7 +57,8 @@ function (when, React, _, BusesListService, BusDetailService, UserService, Buses
     },
 
     render: function () {
-      var showHome = this.state.favoriteBuses.length > 0 && !this.state.showSelectionList,
+      var state = this.state,
+          showSelectionList = this.state.showSelectionList,
           home = <Home buses={this.state.favoriteBuses} onDelete={handleBusDeletion.bind(this)} onSelect={handleBusDetail.bind(this)}/>,
           selectionList = <BusesList buses={this.state.buses} onSelect={handleBusSelection.bind(this)}></BusesList>,
           loading = this.state.loading;
@@ -63,9 +66,10 @@ function (when, React, _, BusesListService, BusDetailService, UserService, Buses
       return (
         <div className='application'>
           <Navigation loading={loading} onClickAdd={openBusSelectionList.bind(this)} onClickBack={handleHomeClick.bind(this)}/>
-          {!showHome && selectionList}
-          {showHome && !this.state.selectedBus && home}
-          {showHome && this.state.selectedBus && <CompleteSchedule line={this.state.selectedBus}/>}
+          {showSelectionList && selectionList}
+          {!showSelectionList && state.favoriteBuses.length === 0 && <WelcomeScreen/>}
+          {!showSelectionList && !this.state.selectedBus && home}
+          {!showSelectionList && this.state.selectedBus && <CompleteSchedule line={this.state.selectedBus}/>}
         </div>
       );
     }
