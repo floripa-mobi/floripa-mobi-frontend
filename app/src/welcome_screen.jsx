@@ -6,7 +6,8 @@ function (React) {
     render: function () {
       return <div className="welcome-screen">
         <h1>Bem vindo ao floripa.mobi</h1>
-        <p>Adicione suas linhas favoritas e acompanhe os horarios dos onibus que mais usa.</p>
+        <p>Horário de ônibus fácil no seu smartphone</p>
+        <button onClick={this.props.onDismiss}>adicionar ônibus</button>
       </div>;
     }
   });

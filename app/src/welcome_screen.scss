@@ -3,4 +3,13 @@
   text-align: center;
   margin-top: 3em;
   padding: 1em;
+
+  button {
+    color: black;
+    background: white;
+    border: 0;
+    padding: 1em 2em;
+    @include appearance(none);
+    border-radius: 5px;
+  }
 }

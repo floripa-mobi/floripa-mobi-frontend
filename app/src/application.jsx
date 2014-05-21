@@ -67,7 +67,7 @@ function (when, React, _, BusesListService, BusDetailService, UserService, Buses
         <div className='application'>
           <Navigation loading={loading} onClickAdd={openBusSelectionList.bind(this)} showBack={showSelectionList || this.state.selectedBus} onClickBack={handleHomeClick.bind(this)}/>
           {showSelectionList && selectionList}
-          {!showSelectionList && state.favoriteBuses.length === 0 && <WelcomeScreen/>}
+          {!showSelectionList && state.favoriteBuses.length === 0 && <WelcomeScreen onDismiss={openBusSelectionList.bind(this)}/>}
           {!showSelectionList && !this.state.selectedBus && home}
           {!showSelectionList && this.state.selectedBus && <CompleteSchedule line={this.state.selectedBus}/>}
         </div>
