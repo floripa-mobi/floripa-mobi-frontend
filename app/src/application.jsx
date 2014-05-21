@@ -69,7 +69,7 @@ function (when, React, _, BusesListService, BusDetailService, UserService, Buses
           {showSelectionList && selectionList}
           {!showSelectionList && state.favoriteBuses.length === 0 && !state.loading && <WelcomeScreen onDismiss={openBusSelectionList.bind(this)}/>}
           {!showSelectionList && !this.state.selectedBus && home}
-          {!showSelectionList && !this.state.selectedBus && state.favoriteBuses.length > 0 && <p className="drag-to-remove">para remover: arraste para a esquerda</p>}
+          {!showSelectionList && !this.state.selectedBus && state.favoriteBuses.length > 0 && <p className="drag-to-remove">para remover arraste para a esquerda</p>}
           {!showSelectionList && this.state.selectedBus && <CompleteSchedule line={this.state.selectedBus}/>}
         </div>
       );
