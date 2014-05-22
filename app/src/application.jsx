@@ -23,6 +23,7 @@ function (when, React, _, BusesListService, BusDetailService, UserService, Buses
         favoriteBuses: [],
         showSelectionList: false,
         loading: false,
+        editing: false,
         selectedBus: null
       };
     },
@@ -59,13 +60,13 @@ function (when, React, _, BusesListService, BusDetailService, UserService, Buses
     render: function () {
       var state = this.state,
           showSelectionList = this.state.showSelectionList,
-          home = <Home buses={this.state.favoriteBuses} onDelete={handleBusDeletion.bind(this)} onSelect={handleBusDetail.bind(this)}/>,
+          home = <Home buses={this.state.favoriteBuses} editing={state.editing} onDelete={handleBusDeletion.bind(this)} onSelect={handleBusDetail.bind(this)}/>,
           selectionList = <BusesList buses={this.state.buses} onSelect={handleBusSelection.bind(this)}></BusesList>,
           loading = this.state.loading;
 
       return (
         <div className='application'>
-          <Navigation loading={loading} onClickAdd={openBusSelectionList.bind(this)} showBack={showSelectionList || this.state.selectedBus} showAdd={!showSelectionList} onClickBack={handleHomeClick.bind(this)}/>
+          <Navigation loading={loading} editing={state.editing} onClickAdd={openBusSelectionList.bind(this)} showBack={showSelectionList || this.state.selectedBus} showAdd={!showSelectionList} onClickBack={handleHomeClick.bind(this)} onClickEdit={handleEditClick.bind(this)}/>
           {showSelectionList && selectionList}
           {!showSelectionList && state.favoriteBuses.length === 0 && !state.loading && <WelcomeScreen onDismiss={openBusSelectionList.bind(this)}/>}
           {!showSelectionList && !this.state.selectedBus && home}
@@ -81,6 +82,10 @@ function (when, React, _, BusesListService, BusDetailService, UserService, Buses
     this.setState({ selectedBus: bus });
   }
 
+
+  function handleEditClick () {
+    this.setState({ editing: !this.state.editing });
+  }
 
   function handleHomeClick () {
     this.setState({ showSelectionList: false, selectedBus: null });

@@ -20,8 +20,9 @@ function (React) {
         <header className={className}>
           <nav>
             <ol>
+              { !props.showBack && <li><button className="edit" onClick={this.props.onClickEdit}>{props.editing ? 'Ok' : 'Editar'}</button></li>}
               { props.showBack && <li><button className="back" onClick={this.props.onClickBack}>Add</button></li> }
-              { props.showAdd && <li><button className="add-favorite-bus" onClick={this.props.onClickAdd}>Add</button></li> }
+              { props.showAdd && !props.editing && <li><button className="add-favorite-bus" onClick={this.props.onClickAdd}>Add</button></li> }
             </ol>
           </nav>
         </header>

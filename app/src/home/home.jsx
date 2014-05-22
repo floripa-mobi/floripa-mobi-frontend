@@ -15,12 +15,13 @@ function (React, _, BusSummary) {
 
     render: function () {
       var that = this,
-          buses = this.props.buses;
+          props = this.props;
 
       return (<ol className='home'>
-        {_(buses).map(function (bus) {
+        {_(props.buses).map(function (bus) {
           return <li key={bus.number}>
-            <BusSummary bus={bus} showSchedule='true' onDelete={that.props.onDelete.bind(that, bus)} onClick={that.props.onSelect.bind(that, bus)}></BusSummary>
+            {props.editing && <button className='remove' onClick={props.onDelete.bind(that, bus)}>—</button>}
+            <BusSummary bus={bus} showSchedule='true' onDelete={props.onDelete.bind(that, bus)} onClick={props.onSelect.bind(that, bus)}></BusSummary>
           </li>;
         })}
       </ol>);
