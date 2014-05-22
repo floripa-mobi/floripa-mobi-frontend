@@ -65,7 +65,7 @@ function (when, React, _, BusesListService, BusDetailService, UserService, Buses
 
       return (
         <div className='application'>
-          <Navigation loading={loading} onClickAdd={openBusSelectionList.bind(this)} showBack={showSelectionList || this.state.selectedBus} onClickBack={handleHomeClick.bind(this)}/>
+          <Navigation loading={loading} onClickAdd={openBusSelectionList.bind(this)} showBack={showSelectionList || this.state.selectedBus} showAdd={!showSelectionList} onClickBack={handleHomeClick.bind(this)}/>
           {showSelectionList && selectionList}
           {!showSelectionList && state.favoriteBuses.length === 0 && !state.loading && <WelcomeScreen onDismiss={openBusSelectionList.bind(this)}/>}
           {!showSelectionList && !this.state.selectedBus && home}

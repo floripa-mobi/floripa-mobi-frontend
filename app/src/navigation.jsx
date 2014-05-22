@@ -21,7 +21,7 @@ function (React) {
           <nav>
             <ol>
               { props.showBack && <li><button className="back" onClick={this.props.onClickBack}>Add</button></li> }
-              <li><button className="add-favorite-bus" onClick={this.props.onClickAdd}>Add</button></li>
+              { props.showAdd && <li><button className="add-favorite-bus" onClick={this.props.onClickAdd}>Add</button></li> }
             </ol>
           </nav>
         </header>
