@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "description": "Frontend project boilerplate",
   "scripts": {
-    "start": "grunt dev",
+    "start": "node bin/server.js",
+    "dev": "grunt dev",
     "test": "grunt spec",
-    "postinstall": "bower install"
+    "postinstall": "bower install --allow-root --config.interactive=false && grunt build"
   },
   "author": "",
   "license": "BSD",
@@ -31,5 +32,8 @@
     "node-sass": "^0.8.3",
     "requirejs": "~2.1.9",
     "underscore": "~1.5.2"
+  },
+  "dependencies": {
+    "express": "^4.12.3"
   }
 }

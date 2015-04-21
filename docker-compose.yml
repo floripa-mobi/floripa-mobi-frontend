@@ -1,0 +1,9 @@
+web:
+  build: .
+  ports:
+    - 3000
+  volumes:
+    - .:/usr/src/app
+  environment:
+    VIRTUAL_HOST: floripa-mobi.local.dockito.org
+    VIRTUAL_PORT: 3000
